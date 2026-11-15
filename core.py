@@ -192,8 +192,8 @@ def worker(i, strategy, crowd, use_ai, log, chaos=False, codes=None, kvm=False):
                 try:
                     code = gen_code(strategy, err, code)
                 except Exception as e:
-                    # ponytail: LLM が落ちても預置策略で走り切る。空画面よりマシ。
-                    log.append(f"AI 生成失敗: {type(e).__name__}: {e} → 預置策略で続行")
+                    # ponytail: LLM が落ちてもプリセット戦略で走り切る。空画面よりマシ。
+                    log.append(f"AI 生成失敗: {type(e).__name__}: {e} → プリセット戦略で続行")
                     code, use_ai, fell = preset, False, True
             codes.append(code)
             log.append(f"Sandbox でシミュレーション 300 回実行（{attempt + 1} 回目）...")

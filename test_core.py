@@ -42,7 +42,7 @@ def test_empty_text_raises():
 
 
 def test_worker_falls_back_to_preset_when_llm_dies():
-    """AI 生成が例外を投げても預置策略で走り切り、結果が None にならないこと。"""
+    """AI 生成が例外を投げてもプリセット戦略で走り切り、結果が None にならないこと。"""
     ran = {}
 
     class FakeProcess:
@@ -66,8 +66,8 @@ def test_worker_falls_back_to_preset_when_llm_dies():
     assert res is not None, f"結果が空: {log}"
     assert res["rides_p50"] == 7
     assert res["fallback"] is True, "代走の印が付いていない"
-    assert repr(core.PRESETS[0][1]) in ran["code"], "預置策略が実行されていない"  # worker は {code!r} で埋め込む
-    assert any("預置策略で続行" in l for l in log), log
+    assert repr(core.PRESETS[0][1]) in ran["code"], "プリセット戦略が実行されていない"  # worker は {code!r} で埋め込む
+    assert any("プリセット戦略で続行" in l for l in log), log
     # LLM が死んでいるのに 3 回叩き直していないこと
     assert len(calls) == 1, f"gen_code を {len(calls)} 回呼んでいる"
 
