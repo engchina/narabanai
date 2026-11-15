@@ -102,5 +102,6 @@ class H(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     gone = sweep()  # 前回の残骸で vCPU 枠を食われたままデモに入らない
     print(f"残骸を掃除: {len(gone)} 個 {gone}" if gone else "残骸なし", flush=True)
-    print("Narabanai → http://localhost:8000", flush=True)
-    ThreadingHTTPServer(("127.0.0.1", 8000), H).serve_forever()
+    port = int(os.getenv("PORT", "8000"))  # .env でも指定できる（core の import 時に読み込み済み）
+    print(f"Narabanai → http://localhost:{port}", flush=True)
+    ThreadingHTTPServer(("127.0.0.1", port), H).serve_forever()
