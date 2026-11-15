@@ -219,9 +219,15 @@ def worker(i, strategy, crowd, use_ai, log, chaos=False, codes=None, kvm=False):
 
 
 CARD = {}  # the one sandbox currently serving the shared plan card
+CARD_LOCK = threading.Lock()  # 2 つの画面が同時に配信すると、片方が作りかけの Sandbox を消してしまう
 
 
 def publish_card(plan):
+    with CARD_LOCK:
+        return _publish_card(plan)
+
+
+def _publish_card(plan):
     # Serves the winning plan as a phone page from a Daytona sandbox; returns a signed preview URL for the QR code.
     # This sandbox only serves our own static HTML (no AI code), so it keeps network for the preview.
     if CARD.get("sb"):
