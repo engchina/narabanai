@@ -69,7 +69,7 @@ Any OpenAI-compatible endpoint works. Setting `LLM_PROVIDER=anthropic` switches 
 
 ```bash
 pip install daytona anthropic
-# create .env as shown below
+cp .env.example .env               # then fill in the values
 python presets.py                  # local self-check, no Daytona needed → prints results
 python test_core.py                # failure-path checks → OK
 python server.py                   # open http://localhost:8000

@@ -75,7 +75,7 @@ OpenAI 互換のエンドポイントなら何でも使えます。`LLM_PROVIDER
 
 ```bash
 pip install daytona anthropic
-# 下の内容で .env を作る
+cp .env.example .env               # 値を入れる
 python presets.py                  # ローカル自己チェック（Daytona 不要）→ 結果を表示
 python test_core.py                # 失敗パスのチェック → OK
 python server.py                   # http://localhost:8000 を開く
