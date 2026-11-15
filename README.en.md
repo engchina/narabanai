@@ -5,6 +5,16 @@ Narabanai turns a plain-language Tokyo Disneyland touring strategy into Python w
 
 > 自然言語の回り方を LLM が Python にし、仕様テストを通ったものだけを、ネットワーク遮断・使い捨ての Daytona Sandbox で 300 回並列シミュレーション。落ちたらエラーを読んで自力修復し、最優秀プランは別の Sandbox から QR コードで配信します。コードを書くモデルは Nosana 上の Qwen 3.8 27B です。
 
+## At a glance: judging criteria
+
+| Criterion | Narabanai |
+|---|---|
+| **Innovation** | A "don't trust, verify" loop for AI-written code (spec gate → isolated run → self-repair → 300-run statistics), applied to an everyday family question, all behind one button |
+| **Completeness** | Working MVP: web UI, API, Agent Skill, self-checks (`presets.py` / `test_core.py`); fill in `.env.example` and it runs. 8 parallel plans and self-repair verified in measured runs |
+| **Real-life problem** | "Should our family pay ¥18,000 for skip-the-line passes?" answered with numbers instead of gut feeling; underneath, the common developer problem of running AI-generated code safely |
+| **Daytona usage** | Daytona is the trust boundary: network blocking, ephemeral sandboxes reclaimed within 10 minutes, up to 8 in parallel, `code_run` for execution and the repair loop, signed preview URLs to serve the result card, label-based cleanup, and automatic KVM fallback |
+| **Nosana usage** | The app's default LLM: Qwen 3.8 27B (vLLM, 128K) deployed from Nosana's official template on an RTX PRO 6000, configured for 8 concurrent requests so parallel plans are generated at once |
+
 ## Why
 
 Everyone can make an LLM write code. The hard part is running that code without trusting it. A family planning a Disney day asks a fuzzy question ("buy Premier Access for the top two rides, then go wherever is emptiest — worth ¥18,000?"). Narabanai answers it with **evidence**: each strategy becomes executable code that is gated, isolated, stress-tested 300 times, and compared on the same footing.
